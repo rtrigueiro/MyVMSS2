@@ -1,13 +1,13 @@
 ﻿# Define the script for your Custom Script Extension to run
 $customConfig = @{
-    "fileUris" = (,"https://raw.githubusercontent.com/iainfoulds/azure-samples/master/automate-iis.ps1");
+    "fileUris" = (,"https://github.com/rtrigueiro/MyVMSS2/blob/master/VMScaleSet_with_FW.ps1");
     "commandToExecute" = "powershell -ExecutionPolicy Unrestricted -File automate-iis.ps1"
 }
 
 # Get information about the scale set
 $vmss = Get-AzureRmVmss `
-                -ResourceGroupName "myResourceGroup" `
-                -VMScaleSetName "myScaleSet"
+                -ResourceGroupName "VMSS" `
+                -VMScaleSetName "MyVMSS"
 
 # Add the Custom Script Extension to install IIS and configure basic website
 $vmss = Add-AzureRmVmssExtension `
@@ -20,6 +20,6 @@ $vmss = Add-AzureRmVmssExtension `
 
 # Update the scale set and apply the Custom Script Extension to the VM instances
 Update-AzureRmVmss `
-    -ResourceGroupName "myResourceGroup" `
+    -ResourceGroupName "VMSS" `
     -Name "myScaleSet" `
     -VirtualMachineScaleSet $vmss
